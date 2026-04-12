@@ -1,0 +1,18 @@
+Signal 2 (mean reversion) triggered the most orders by far. Since the prices
+are drawn uniformly at random from [100, 200], they jump around a lot relative
+to the 10-tick rolling average, so the 2% deviation threshold gets crossed
+constantly. Signal 3 (momentum) also fires pretty often because with random
+walks there's roughly a 25% chance of two consecutive upward moves. Signal 1
+contributes the least -- it only catches ticks near the edges of the price
+range (below 105 or above 195), which is about 10% of the distribution.
+
+For optimization, the biggest win would be replacing the vector erase in
+updateHistory with a ring buffer. Right now every erase shifts the whole
+vector, which is O(n) per tick. A fixed-size circular buffer would make
+that O(1). You could also pre-sort ticks by instrument_id so the
+unordered_map lookups are more cache-friendly, or batch-process ticks per
+instrument. At 10x the data (1 million ticks), the current code would still
+run fine -- the processing is linear in the number of ticks, so runtime
+would scale roughly proportionally. The main bottleneck at that scale would
+be the vector erases in updateHistory adding up, which again a ring buffer
+would fix.
