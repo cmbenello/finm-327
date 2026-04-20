@@ -1,0 +1,49 @@
+# Initial market setup
+BID 100.10 300
+ASK 100.20 250
+
+# New bid comes in at a better price
+BID 100.15 200
+
+# Ask gets updated to a better price
+ASK 100.18 100
+
+# Partial quantity removed from top ask
+ASK 100.18 60
+
+# Bid at 100.10 disappears (canceled or filled)
+BID 100.10 0
+
+# Ask quantity reduced again
+ASK 100.18 30
+
+# Ask completely gone
+ASK 100.18 0
+
+# New ask comes in higher
+ASK 100.25 200
+
+# Strategy places an order (assumed ID = 1) when bid hits the sell threshold below
+BID 100.20 300
+
+# Simulated execution events from the "exchange" against order ID 1
+EXECUTION 1 10
+EXECUTION 1 20
+
+# Cheap ask triggers a BUY (assumed ID = 2)
+ASK 100.16 75
+
+# Fill for that new order
+EXECUTION 2 50
+
+# Bid reduced
+BID 100.15 100
+
+# Ask comes in at a new level
+ASK 100.22 150
+
+# Execution that completes order 1 fully (50 - 10 - 20 = 20 left)
+EXECUTION 1 20
+
+# Final snapshot change
+ASK 100.23 100

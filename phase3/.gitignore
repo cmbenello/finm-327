@@ -1,0 +1,5 @@
+trader
+trader_asan
+*.dSYM/
+*.o
+output.log
