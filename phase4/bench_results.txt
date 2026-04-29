@@ -1,0 +1,26 @@
+phase4 latency experiments
+==========================
+
+-- container layout, N=10K --
+map-book   N=10K                     n=10000    min=41      p50=125     mean=161     p99=1666     max=10000    std=257 (ns)
+flat-book  N=10K                     n=10000    min=41      p50=625     mean=842     p99=3417     max=81083    std=1288 (ns)
+
+-- load scaling, map-book --
+map-book   N=1K                      n=1000     min=41      p50=125     mean=187     p99=1917     max=7209     std=347 (ns)
+map-book   N=10K                     n=10000    min=0       p50=125     mean=152     p99=1375     max=22250    std=409 (ns)
+map-book   N=100K                    n=100000   min=0       p50=125     mean=159     p99=1458     max=100083   std=523 (ns)
+map-book   N=1M                      n=1000000  min=0       p50=125     mean=174     p99=1458     max=200875   std=641 (ns)
+
+-- load scaling, flat-book --
+flat-book  N=1K                      n=1000     min=41      p50=209     mean=305     p99=1667     max=7458     std=407 (ns)
+flat-book  N=10K                     n=10000    min=0       p50=625     mean=825     p99=3458     max=29334    std=856 (ns)
+flat-book  N=100K                    n=100000   min=0       p50=2250    mean=3945    p99=20542    max=85541    std=4682 (ns)
+
+-- allocation paths (Order objects) --
+shared_ptr / make_shared             n=100000   min=0       p50=41      mean=29      p99=83       max=138833   std=452 (ns)
+raw new/delete                       n=100000   min=0       p50=0       mean=16      p99=42       max=7333     std=31 (ns)
+MemoryPool acquire/release           n=100000   min=0       p50=0       mean=18      p99=42       max=42250    std=220 (ns)
+
+-- cache alignment (MarketData walk) --
+alignas(64) MarketData walk          N=1000000 ns=1263458 (acc=3.0009e+08, 64B/struct)
+unaligned MarketData walk            N=1000000 ns=1466375 (acc=3.0009e+08, 72B/struct)
