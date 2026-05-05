@@ -1,0 +1,32 @@
+=== Part 1: Hash Table (N=200000 inserts, 2000000 lookups) ===
+structure                insert(ms)   lookup(ms)    erase(ms)
+RobinHoodMap                  17.94       118.41         5.22
+std::unordered_map            10.04       126.76         6.30
+speedup (lookup):     1.07x
+sink=400313568276.000000
+
+=== Part 2: Priority Queue (N=1000000) ===
+structure                  push(ms)      pop(ms)    mixed(ms)
+BinaryHeap                    25.40       279.13        82.13
+std::priority_queue           26.30       206.91        83.97
+speedup (push):  1.04x
+speedup (pop):   0.74x
+speedup (mixed): 1.02x
+sink=500030380.726867
+
+=== Part 3: Moving Average (N=1048576, W=64) ===
+SIMD path:        NEON (128-bit, 2xf64)
+method                             time(ms)
+sliding-sum scalar                     0.00   (O(N), reference)
+brute scalar                          11.74   (O(N*W) baseline)
+brute SIMD                             6.16   (O(N*W) vectorized)
+speedup brute_scalar -> SIMD: 1.91x
+max abs error (brute vs SIMD): 1.705e-13
+
+=== Part 4: Order Book (N=200000 orders, 500000 BBO queries) ===
+structure                 add(ms)    mod(ms) BBOx500k(ms) cancel(ms)
+OrderBook(uo+map)           18.90       3.23         1.78      24.81
+FlatBook(uo only)            4.92       2.02    822311.88       8.15
+(FlatBook BBO timed on 200 queries, scaled to 500000)
+BBO speedup (uo+map vs uo only): 462742x
+sink=4496798.000058
