@@ -1,0 +1,6 @@
+bench_app
+demo_app
+test_app
+*.dSYM/
+*.log
+build/
