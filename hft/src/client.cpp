@@ -252,7 +252,7 @@ static void pretouch() {
 int main(int argc, char** argv) {
     const char* host = (argc > 1) ? argv[1] : "127.0.0.1";
     int port = (argc > 2) ? atoi(argv[2]) : PORT_DEFAULT;
-    const char* name = (argc > 3) ? argv[3] : "shoemaker";
+    const char* name = (argc > 3) ? argv[3] : "group8";
 
     mlockall(MCL_CURRENT | MCL_FUTURE);
     try_real_time();

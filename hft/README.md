@@ -1,6 +1,6 @@
 # HFT Matrix Challenge — Client
 
-**Group name:** `shoemaker`
+**Group name:** `group8`
 
 A low-latency TCP client for the FINM 327 HFT Matrix Challenge. The server
 broadcasts an `N x N` matrix-multiply challenge every ~10 seconds; the client
@@ -39,10 +39,10 @@ reference, and the `bin/micro` / `bin/correctness` benchmarks).
 ./bin/client <host> <port> <group_name>
 ```
 
-Defaults: `127.0.0.1 12345 shoemaker`. Pin to a dedicated core for best latency:
+Defaults: `127.0.0.1 12345 group8`. Pin to a dedicated core for best latency:
 
 ```
-taskset -c 4 ./bin/client <host> 12345 shoemaker
+taskset -c 4 ./bin/client <host> 12345 group8
 ```
 
 Running as root (or with `CAP_SYS_NICE` + cpufreq write access) lets the client
