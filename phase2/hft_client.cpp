@@ -43,7 +43,7 @@ void receiveAndRespond(int socketFd, const string& name) {
         float price = stof(data.substr(commaPos + 1));
         pricesReceived++;
 
-        cout << "📥 Received price ID: " << priceId << ", Value: " << price << endl;
+        cout << "Received price ID: " << priceId << ", Value: " << price << endl;
 
         // keep the last 3 prices for momentum check
         if (priceHistory.size() >= 3)
@@ -67,13 +67,13 @@ void receiveAndRespond(int socketFd, const string& name) {
                 ordersHit++;
 
                 string direction = up ? "UP" : "DOWN";
-                cout << "📤 Momentum " << direction << "! Sent order for price ID: " << priceId
+                cout << "Momentum " << direction << "! Sent order for price ID: " << priceId
                      << " (prices: " << a << ", " << b << ", " << c << ")" << endl;
             } else {
-                cout << "⏸️ No momentum. Skipping price ID: " << priceId << endl;
+                cout << "No momentum. Skipping price ID: " << priceId << endl;
             }
         } else {
-            cout << "⏳ Waiting for more data (" << priceHistory.size()
+            cout << "Waiting for more data (" << priceHistory.size()
                  << "/3 prices collected)" << endl;
         }
     }
@@ -108,7 +108,7 @@ int main() {
         return 1;
     }
 
-    cout << "✅ Connected to server at " << SERVER_IP << ":" << SERVER_PORT << endl;
+    cout << "Connected to server at " << SERVER_IP << ":" << SERVER_PORT << endl;
     receiveAndRespond(sock, name);
     return 0;
 }

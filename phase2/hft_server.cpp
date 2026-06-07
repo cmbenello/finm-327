@@ -54,7 +54,7 @@ void broadcastPrices() {
             }
         }
 
-        cout << "📢 Sent price ID " << id << " with value " << price << endl;
+        cout << "Sent price ID " << id << " with value " << price << endl;
         this_thread::sleep_for(chrono::seconds(5));
     }
 }
@@ -67,20 +67,20 @@ void handleClient(ClientInfo* client) {
     memset(buffer, 0, BUFFER_SIZE);
     int bytesReceived = recv(client->socket, buffer, BUFFER_SIZE - 1, 0);
     if (bytesReceived <= 0) {
-        cerr << "❌ Failed to receive client name." << endl;
+        cerr << "Failed to receive client name." << endl;
         close(client->socket);
         return;
     }
 
     client->name = string(buffer);
-    cout << "👤 Registered client: " << client->name << endl;
+    cout << "Registered client: " << client->name << endl;
 
     // Receive orders
     while (true) {
         memset(buffer, 0, BUFFER_SIZE);
         bytesReceived = recv(client->socket, buffer, BUFFER_SIZE - 1, 0);
         if (bytesReceived <= 0) {
-            cerr << "❌ Client " << client->name << " disconnected." << endl;
+            cerr << "Client " << client->name << " disconnected." << endl;
             break;
         }
 
@@ -95,13 +95,13 @@ void handleClient(ClientInfo* client) {
             }
 
             if (priceTimestamps.find(receivedPriceId) == priceTimestamps.end()) {
-                cerr << "⚠️ Unknown price ID: " << receivedPriceId << endl;
+                cerr << "Unknown price ID: " << receivedPriceId << endl;
                 continue;
             }
 
             priceAlreadyHit.insert(receivedPriceId);
             auto latency = duration_cast<milliseconds>(now - priceTimestamps[receivedPriceId]).count();
-            cout << "🎯 " << client->name << " hit price ID " << receivedPriceId
+            cout << client->name << " hit price ID " << receivedPriceId
                  << " after " << latency << " ms" << endl;
         }
     }
@@ -137,7 +137,7 @@ void startServer() {
         exit(EXIT_FAILURE);
     }
 
-    cout << "🚀 Server is listening on 127.0.0.1:" << PORT << endl;
+    cout << "Server is listening on 127.0.0.1:" << PORT << endl;
 
     thread priceThread(broadcastPrices);
     priceThread.detach();
@@ -151,7 +151,7 @@ void startServer() {
             continue;
         }
 
-        cout << "📡 Client connected: " << inet_ntoa(clientAddr.sin_addr) << endl;
+        cout << "Client connected: " << inet_ntoa(clientAddr.sin_addr) << endl;
 
         // Create a new client object on the heap
         auto client = make_unique<ClientInfo>();
